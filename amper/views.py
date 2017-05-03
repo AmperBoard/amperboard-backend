@@ -32,7 +32,9 @@ def radiation_day(request):
         azimuth_deg = get_azimuth(float(latitude), float(longitude), current_date)
         radiation_hour = get_radiation_direct(when=date, altitude_deg=altitude_deg)
 
-        final_radiation_hour = radiation_hour * 0.1 * float(user_config.square_meters)
+        efficiency = 0.1
+
+        final_radiation_hour = radiation_hour * efficiency * square_meters
 
         radiations.append({
             "hour": current_date.hour,
