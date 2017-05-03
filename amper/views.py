@@ -13,7 +13,9 @@ from amper.serializers import ReportSerializer
 @api_view()
 def historical_generation(request):
     timestamp = request.query_params.get("timestamp")
-    days = request.query_params.get("days")
+    params_days = request.query_params.get("days")
+
+    days = int(params_days) if params_days is not None else 0
 
     if timestamp is None:
         date = timezone.now()
@@ -50,7 +52,9 @@ def historical_generation(request):
 @api_view()
 def historical_consumption(request):
     timestamp = request.query_params.get("timestamp")
-    days = request.query_params.get("days")
+    params_days = request.query_params.get("days")
+
+    days = int(params_days) if params_days is not None else 0
 
     if timestamp is None:
         date = timezone.now()
