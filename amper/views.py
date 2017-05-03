@@ -12,12 +12,14 @@ from amper.models import UserConfig
 def radiation_day(request):
     timestamp = request.query_params.get("timestamp")
 
+    latitude = request.query_params.get("latitude")
+    longitude = request.query_params.get("longitud")
+    square_meters = request.query_params.get("square_meters")
+
     if timestamp is None:
         date = datetime.now()
     else:
         date = datetime.fromtimestamp(int(timestamp))
-
-    date = datetime(year=date.year, month=date.month, day=date.day, hour=date.hour, minute=0, second=0, microsecond=0)
 
     radiations = []
 
@@ -26,15 +28,15 @@ def radiation_day(request):
 
         user_config = UserConfig.objects.all().first()
 
-        altitude_deg = get_altitude(float(user_config.latitude), float(user_config.longitude), current_date)
-        azimuth_deg = get_azimuth(float(user_config.latitude), float(user_config.longitude), current_date)
+        altitude_deg = get_altitude(float(latitude), float(longitude), current_date)
+        azimuth_deg = get_azimuth(float(latitude), float(longitude), current_date)
         radiation_hour = get_radiation_direct(when=date, altitude_deg=altitude_deg)
 
-        final_radiation_hour = radiation_hour * 0.15 * float(user_config.square_meters)
+        final_radiation_hour = radiation_hour * 0.1 * float(user_config.square_meters)
 
         radiations.append({
             "hour": current_date.hour,
-            "radiation": final_radiation_hour
+            "energy": final_radiation_hour
         })
 
     return Response(radiations)
