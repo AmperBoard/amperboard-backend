@@ -13,7 +13,7 @@ def radiation_day(request):
     timestamp = request.query_params.get("timestamp")
 
     latitude = request.query_params.get("latitude")
-    longitude = request.query_params.get("longitud")
+    longitude = request.query_params.get("longitude")
     square_meters = request.query_params.get("square_meters")
 
     if timestamp is None:
