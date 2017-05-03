@@ -1,7 +1,8 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
-from pysolar.solar import get_altitude, get_azimuth
+from django.utils import timezone
 from pysolar.radiation import *
+from pysolar.solar import get_altitude, get_azimuth
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -14,7 +15,7 @@ def historical_generation(request):
     timestamp = request.query_params.get("timestamp")
 
     if timestamp is None:
-        date = datetime.now()
+        date = timezone.now()
     else:
         date = datetime.fromtimestamp(int(timestamp))
 
@@ -50,11 +51,11 @@ def historical_consumption(request):
     timestamp = request.query_params.get("timestamp")
 
     if timestamp is None:
-        date = datetime.now()
+        date = timezone.now()
     else:
         date = datetime.fromtimestamp(int(timestamp))
 
-    reports = Report.objects.filter(date=date)
+    reports = Report.objects.filter(start_time__lte=date - timedelta(hours=24))
 
     serializer_class = ReportSerializer(reports, many=True)
 
