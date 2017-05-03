@@ -25,7 +25,11 @@ def radiation_day(request):
         user_config = UserConfig.objects.all().first()
 
         altitude_deg = get_altitude(float(user_config.latitude), float(user_config.longitude), current_date)
+
+        altitude_deg = max(0, altitude_deg)
+
         azimuth_deg = get_azimuth(float(user_config.latitude), float(user_config.longitude), current_date)
+
         radiation_hour = get_radiation_direct(when=date, altitude_deg=altitude_deg)
 
         efficiency = 0.1
