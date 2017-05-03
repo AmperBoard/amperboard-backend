@@ -115,19 +115,6 @@ class RealTimeDataViewSet(viewsets.ModelViewSet):
         consumption = request.query_params.get("consumption")
         produced = request.query_params.get("produced")
 
-        '''
-        data = RealTimeData.objects.all().first()
-
-        if data is not None:
-            data.consumption = consumption
-            data.produced = produced
-            data.date = timezone.now()
-
-            data.save()
-
-            return Response(status=201)
-        '''
-
         RealTimeData.objects.create(consumption=consumption, produced=produced)
         return Response(status=201)
 

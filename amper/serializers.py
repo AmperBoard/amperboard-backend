@@ -57,10 +57,6 @@ class RealTimeDataSerializer(utils.RelationModelSerializer):
 
 
 class UserConfigSerializer(serializers.ModelSerializer):
-    azimut = serializers.DecimalField(max_digits=10, decimal_places=2, required=False)
-    solar_panel_angle = serializers.DecimalField(max_digits=5, decimal_places=2, required=False)
-    reflectance_angle = serializers.DecimalField(max_digits=5, decimal_places=2, required=False)
-
     def create(self, validated_data):
         config = UserConfig.objects.all()
         if config.exists():
@@ -71,4 +67,4 @@ class UserConfigSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserConfig
-        fields = ("latitude", "azimut", "solar_panel_angle", "reflectance_angle", "square_meters")
+        fields = ("latitude", "longitude", "place_id", "address", "solar_panel_angle", "square_meters")
