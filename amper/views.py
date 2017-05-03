@@ -13,6 +13,7 @@ from amper.serializers import ReportSerializer
 @api_view()
 def historical_generation(request):
     timestamp = request.query_params.get("timestamp")
+    days = request.query_params.get("days")
 
     if timestamp is None:
         date = timezone.now()
@@ -21,7 +22,7 @@ def historical_generation(request):
 
     radiations = []
 
-    for x in range(1, 25):
+    for x in range(1, days + 1):
         current_date = date - timedelta(hours=x)
 
         user_config = UserConfig.objects.all().first()
@@ -49,13 +50,14 @@ def historical_generation(request):
 @api_view()
 def historical_consumption(request):
     timestamp = request.query_params.get("timestamp")
+    days = request.query_params.get("days")
 
     if timestamp is None:
         date = timezone.now()
     else:
         date = datetime.fromtimestamp(int(timestamp))
 
-    reports = Report.objects.filter(start_time__lte=date - timedelta(hours=24))
+    reports = Report.objects.filter(start_time__lte=date - timedelta(days=days))
 
     serializer_class = ReportSerializer(reports, many=True)
 
