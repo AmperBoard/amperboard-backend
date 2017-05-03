@@ -30,7 +30,7 @@ def radiation_day(request):
 
         efficiency = 0.1
 
-        final_radiation_hour = radiation_hour * efficiency * user_config.square_meters
+        final_radiation_hour = radiation_hour * efficiency * float(user_config.square_meters)
 
         radiations.append({
             "hour": current_date.hour,
