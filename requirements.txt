@@ -8,7 +8,6 @@ dj-database-url==0.4.1
 Django==1.10.4
 django-cors-headers==2.0.2
 django-crontab==0.7.1
-django-crontab==0.7.1
 django-filter==1.0.2
 django-import-export==0.5.1
 https://github.com/darklow/django-suit/tarball/v2
@@ -35,15 +34,18 @@ nbformat==4.3.0
 notebook==5.0.0
 numpy==1.12.1
 packaging==16.8
+pandoc==1.0.0b2
 pandocfilters==1.4.1
 pexpect==4.2.1
 pickleshare==0.7.4
+ply==3.10
 prompt-toolkit==1.0.14
 psycopg2==2.6.2
 ptyprocess==0.5.1
 Pygments==2.2.0
 pyowm==2.6.1
 pyparsing==2.2.0
+pysolar==0.7
 python-dateutil==2.6.0
 pytz==2017.2
 pyzmq==16.0.2
