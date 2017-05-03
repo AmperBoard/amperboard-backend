@@ -5,11 +5,12 @@ from pysolar.radiation import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from amper.models import UserConfig
+from amper.models import UserConfig, Report
+from amper.serializers import ReportSerializer
 
 
 @api_view()
-def radiation_day(request):
+def historical_generation(request):
     timestamp = request.query_params.get("timestamp")
 
     if timestamp is None:
@@ -42,3 +43,19 @@ def radiation_day(request):
         })
 
     return Response(radiations)
+
+
+@api_view()
+def historical_consumption(request):
+    timestamp = request.query_params.get("timestamp")
+
+    if timestamp is None:
+        date = datetime.now()
+    else:
+        date = datetime.fromtimestamp(int(timestamp))
+
+    reports = Report.objects.filter(date=date)
+
+    serializer_class = ReportSerializer(reports, many=True)
+
+    return Response(serializer_class.data)
