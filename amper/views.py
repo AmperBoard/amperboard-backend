@@ -15,7 +15,7 @@ def historical_generation(request):
     timestamp = request.query_params.get("timestamp")
     params_days = request.query_params.get("days")
 
-    days = int(params_days) if params_days is not None else 0
+    hours = int(params_days) * 24 if params_days is not None else 0
 
     if timestamp is None:
         date = timezone.now()
@@ -24,7 +24,7 @@ def historical_generation(request):
 
     radiations = []
 
-    for x in range(1, days + 1):
+    for x in range(1, hours):
         current_date = date - timedelta(hours=x)
 
         user_config = UserConfig.objects.all().first()
