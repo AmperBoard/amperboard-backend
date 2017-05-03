@@ -59,8 +59,8 @@ class WeatherData(models.Model):
 
 
 class UserConfig(models.Model):
-    latitude = models.DecimalField(max_digits=5, decimal_places=2, null=True)
-    longitude = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    latitude = models.DecimalField(max_digits=8, decimal_places=6, null=True)
+    longitude = models.DecimalField(max_digits=8, decimal_places=6, null=True)
     place_id = models.CharField(max_length=75, null=True)
     address = models.CharField(max_length=300, null=True)
     solar_panel_angle = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
