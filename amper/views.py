@@ -22,24 +22,27 @@ def historical_generation(request):
     else:
         date = datetime.fromtimestamp(int(timestamp))
 
+    user_config = UserConfig.objects.all().first()
+
+    latitude = float(user_config.latitude) if user_config.latitude is not None else 0.0
+    longitude = float(user_config.longitude) if user_config.longitude is not None else 0.0
+    square_meters = float(user_config.square_meters) if user_config.square_meters is not None else 0.0
+    efficiency = 0.1
+
     radiations = []
 
     for x in range(1, hours):
         current_date = date - timedelta(hours=x)
 
-        user_config = UserConfig.objects.all().first()
-
-        altitude_deg = get_altitude(float(user_config.latitude), float(user_config.longitude), current_date)
+        altitude_deg = get_altitude(latitude, longitude, current_date)
 
         altitude_deg = max(0, altitude_deg)
 
-        azimuth_deg = get_azimuth(float(user_config.latitude), float(user_config.longitude), current_date)
+        azimuth_deg = get_azimuth(latitude, longitude, current_date)
 
-        radiation_hour = get_radiation_direct(when=date, altitude_deg=altitude_deg)
+        radiation_hour = get_radiation_direct(date, altitude_deg)
 
-        efficiency = 0.1
-
-        final_radiation_hour = radiation_hour * efficiency * float(user_config.square_meters)
+        final_radiation_hour = radiation_hour * efficiency * square_meters
 
         radiations.append({
             "hour": current_date.hour,
