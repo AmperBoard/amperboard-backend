@@ -17,8 +17,9 @@ class Command(BaseCommand):
         date_list = [base - timedelta(days=x) for x in range(0, num_days)]
 
         for date in date_list:
-
-            for x in range(3):
+            for x in range(10):
+                date = datetime(year=date.year, day=date.day, hour=randrange(10, 23), second=date.second,
+                                minute=date.minute)
                 item = query[randrange(1, query.count())]
 
                 Report.objects.create(
