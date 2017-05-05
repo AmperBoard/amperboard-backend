@@ -101,6 +101,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_WHITELIST = (
     'amperboard.com',
+    'board.amperboard.com',
     'localhost:8080',
 )
 
