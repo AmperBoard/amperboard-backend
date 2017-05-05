@@ -17,7 +17,7 @@ class Command(BaseCommand):
         date_list = [base - timedelta(days=x) for x in range(0, num_days)]
 
         for date in date_list:
-            for x in range(10):
+            for x in range(3):
                 date = datetime(year=date.year, month=date.month, day=date.day, hour=randrange(10, 23),
                                 second=date.second, minute=date.minute)
                 item = query[randrange(1, query.count())]
