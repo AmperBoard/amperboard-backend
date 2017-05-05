@@ -18,8 +18,8 @@ class Command(BaseCommand):
 
         for date in date_list:
             for x in range(10):
-                date = datetime(year=date.year, day=date.day, hour=randrange(10, 23), second=date.second,
-                                minute=date.minute)
+                date = datetime(year=date.year, month=date.month, day=date.day, hour=randrange(10, 23),
+                                second=date.second, minute=date.minute)
                 item = query[randrange(1, query.count())]
 
                 Report.objects.create(
