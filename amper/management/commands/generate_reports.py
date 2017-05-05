@@ -18,7 +18,7 @@ class Command(BaseCommand):
 
         for date in date_list:
 
-            for x in range(10):
+            for x in range(3):
                 item = query[randrange(1, query.count())]
 
                 Report.objects.create(
